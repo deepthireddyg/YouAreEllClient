@@ -32,6 +32,11 @@ public class Message implements Comparable {
         this.fromId = fromId;
         this.toId = "";
     }
+    public Message (String message) {
+        this.message = message;
+        this.fromId = fromId;
+        this.toId = "";
+    }
 
     @Override
     public String toString() {

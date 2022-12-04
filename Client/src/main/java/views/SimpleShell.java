@@ -9,6 +9,10 @@ import java.util.List;
 
 import controllers.IdController;
 import controllers.MessageController;
+import controllers.TransactionController;
+
+import models.Id;
+import models.Message;
 import youareell.YouAreEll;
 
 // Simple Shell is a Console view for youareell.YouAreEll.
@@ -21,7 +25,8 @@ public class SimpleShell {
     }
     public static void main(String[] args) throws java.io.IOException {
 
-        YouAreEll urll = new YouAreEll(new MessageController(), new IdController());
+       // YouAreEll urll = new YouAreEll(new MessageController(), new IdController());
+        YouAreEll urll1 = new YouAreEll(new TransactionController(new MessageController(), new IdController()));
         
         String commandLine;
         BufferedReader console = new BufferedReader
@@ -67,16 +72,67 @@ public class SimpleShell {
                 // Specific Commands.
 
                 // ids
-                if (list.contains("ids")) {
-                    String results = webber.get_ids();
-                    SimpleShell.prettyPrint(results);
+                if (list.contains("ids")&&list.size()==1) {
+               //     String results = webber.get_ids();
+                    ArrayList<Id> myArrayList;// = new ArrayList<Id>();
+                    myArrayList = urll1.get_ids();
+                   // SimpleShell.prettyPrint(results);
+
+                    System.out.println("number of elements - " + myArrayList.size());
+
+                    for(int i =0; i < myArrayList.size();i++)
+                        System.out.println(myArrayList.get(i).getName() + "," + myArrayList.get(i).getGithub());
+
+
                     continue;
                 }
 
+                if (list.contains("ids")&&list.size()==3) {
+
+                //    System.out.println("I am checking is it ids post request" + list.get(0) + "," + list.get(1) + ","+list.get(2));
+                    ArrayList<Id> myArrayList;// = new ArrayList<Id>();
+                    myArrayList = urll1.post_ids(list.get(1),list.get(2));
+                    // SimpleShell.prettyPrint(results);
+
+                    System.out.println("number of elements - " + myArrayList.size());
+
+                    for(int i =0; i < myArrayList.size();i++)
+                        System.out.println(myArrayList.get(i).getName() + "," + myArrayList.get(i).getGithub());
+
+
+
+                    continue;
+                }
+
+                if (list.contains("ids")&&list.size()==4) {
+
+                    //    System.out.println("I am checking is it ids post request" + list.get(0) + "," + list.get(1) + ","+list.get(2));
+                    ArrayList<Id> myArrayList;// = new ArrayList<Id>();
+                    myArrayList = urll1.put_ids(list.get(1),list.get(2),list.get(3));
+                    // SimpleShell.prettyPrint(results);
+
+                    System.out.println("number of elements - " + myArrayList.size());
+
+                    for(int i =0; i < myArrayList.size();i++)
+                        System.out.println(myArrayList.get(i).getName() + "," + myArrayList.get(i).getGithub());
+
+
+
+                    continue;
+                }
+
+
                 // messages
                 if (list.contains("messages")) {
-                    String results = webber.get_messages();
-                    SimpleShell.prettyPrint(results);
+                  //  String results = webber.get_messages();
+                 ArrayList<Message> results = urll1.get_messages();
+                   // SimpleShell.prettyPrint(results);
+                    System.out.println("number of elements - " + results.size());
+
+                    for(int i =0; i < results.size();i++)
+                        System.out.println(results.get(i).getMessage() + "," + results.get(i).getFromId() + "," + results.get(i).getToId());
+
+
                     continue;
                 }
                 // you need to add a bunch more.
@@ -112,7 +168,8 @@ public class SimpleShell {
             }
 
             //catch ioexception, output appropriate message, resume waiting for input
-            catch (IOException e) {
+            catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Input Error, Please try again!");
             }
             // So what, do you suppose, is the meaning of this comment?

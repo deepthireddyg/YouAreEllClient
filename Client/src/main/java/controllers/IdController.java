@@ -6,9 +6,24 @@ import java.util.HashMap;
 import models.Id;
 
 public class IdController {
-    private HashMap<String, Id> allIds;
 
-    Id myId;
+
+ //   private HashMap<String, Id> allIds;
+
+
+
+    private ArrayList<Id> allIds = new ArrayList<Id>();
+
+    public ArrayList<Id> getAllIds() {
+        return allIds;
+    }
+
+    public void setAllIds(ArrayList<Id> allIds) {
+        this.allIds = allIds;
+    }
+
+
+   // Id myId;
 
     public ArrayList<Id> getIds() {
         return null;

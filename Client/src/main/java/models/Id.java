@@ -1,5 +1,7 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /* 
  * POJO for an Id object
  */
@@ -8,7 +10,15 @@ public class Id {
     private String name = "";
     private String github = "";
 
-    public Id (String name, String githubId) {}
+//    public Id (@JsonProperty("name") String name, @JsonProperty("github")String githubId) {
+//        this.name = name;
+//        this.github = githubId;
+//    }
+
+    public Id (String name, String githubId) {
+       this.name = name;
+        this.github = githubId;
+    }
 
     public String getUid() {
         return uid;
