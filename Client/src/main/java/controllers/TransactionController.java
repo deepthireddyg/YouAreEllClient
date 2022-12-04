@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Id;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Message;
@@ -117,6 +119,10 @@ public class TransactionController {
         JsonNode actualObj = mapper.readTree(reqResponse);
         ArrayList<Message> msg1 = new ArrayList<>();
 
+      //  System.out.println(actualObj.size());
+      //  System.out.println(actualObj.get(0));
+      //  System.out.println(actualObj.getNodeType().getClass().getSimpleName());
+
 
         for(int i = 0; i < actualObj.size(); i++){
 
@@ -125,7 +131,61 @@ public class TransactionController {
 
         return msg1;
     }
+    //when sequence is added
+    public ArrayList<Message> makeMessageGetCall1(String s) throws IOException, InterruptedException{
+        ServerController sc1 = new ServerController();
+        String reqResponse = sc1.sendReq(s);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(reqResponse);
+        ArrayList<Message> msg1 = new ArrayList<>();
 
+        //  System.out.println(actualObj.size());
+        //  System.out.println(actualObj.get(0));
+        //  System.out.println(actualObj.getNodeType().getClass().getSimpleName());
+
+            msg1.add(0, new Message(actualObj.get("message").toString(),actualObj.get("fromid").toString(),actualObj.get("toid").toString(),actualObj.get("sequence").toString()));
+        return msg1;
+    }
+
+    public ArrayList<Message> postMessageToWorld(String s,String postmsg) throws IOException, InterruptedException{
+        ServerController sc1 = new ServerController();
+        String reqResponse = sc1.sendPostMsg(s,postmsg);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(reqResponse);
+        ArrayList<Message> msg1 = new ArrayList<>();
+
+        //  System.out.println(actualObj.size());
+        //  System.out.println(actualObj.get(0));
+        //  System.out.println(actualObj.getNodeType().getClass().getSimpleName());
+
+
+
+
+        msg1.add(0, new Message(actualObj.get("message").toString(),actualObj.get("fromid").toString(),actualObj.get("toid").toString(),actualObj.get("sequence").toString()));
+
+
+        return msg1;
+    }
+
+    public ArrayList<Message> postMessageFromAndTo(String s,String postmsg) throws IOException, InterruptedException{
+        ServerController sc1 = new ServerController();
+        String reqResponse = sc1.sendPostMsg(s,postmsg);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(reqResponse);
+        ArrayList<Message> msg1 = new ArrayList<>();
+
+          System.out.println(actualObj.size());
+         System.out.println(actualObj);
+        //  System.out.println(actualObj.getNodeType().getClass().getSimpleName());
+
+
+
+
+        msg1.add(0, new Message(actualObj.get("message").toString(),actualObj.get("fromid").toString(),actualObj.get("toid").toString(),actualObj.get("sequence").toString()));
+
+
+        return msg1;
+    }
 // Exampe of HTTP URL Connection;
 
 //    public  String makecall(String s,String get, String s1) throws IOException{

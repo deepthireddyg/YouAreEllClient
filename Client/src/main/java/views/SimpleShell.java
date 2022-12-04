@@ -72,6 +72,8 @@ public class SimpleShell {
                 // Specific Commands.
 
                 // ids
+                //ToExecute type the below
+                //ids
                 if (list.contains("ids")&&list.size()==1) {
                //     String results = webber.get_ids();
                     ArrayList<Id> myArrayList;// = new ArrayList<Id>();
@@ -87,6 +89,9 @@ public class SimpleShell {
                     continue;
                 }
 
+                // This is to register your name and githubid
+                //ToExecute type the below
+                //ids <nameValue> <githubidValue>
                 if (list.contains("ids")&&list.size()==3) {
 
                 //    System.out.println("I am checking is it ids post request" + list.get(0) + "," + list.get(1) + ","+list.get(2));
@@ -103,7 +108,9 @@ public class SimpleShell {
 
                     continue;
                 }
-
+                //Put This is to update a name given userid
+                //ToExecute type the below
+                // ids <userid> <nameid> <githubid>
                 if (list.contains("ids")&&list.size()==4) {
 
                     //    System.out.println("I am checking is it ids post request" + list.get(0) + "," + list.get(1) + ","+list.get(2));
@@ -120,10 +127,10 @@ public class SimpleShell {
 
                     continue;
                 }
-
-
+                // This is to pull all the messages
+                //ToExecute type the below
                 // messages
-                if (list.contains("messages")) {
+                if (list.contains("messages") && list.size()==1) {
                   //  String results = webber.get_messages();
                  ArrayList<Message> results = urll1.get_messages();
                    // SimpleShell.prettyPrint(results);
@@ -135,6 +142,84 @@ public class SimpleShell {
 
                     continue;
                 }
+                //To get messages of a given githubid
+                //To Exxecute write the below command for testing u can use this id(erdfcvs)
+                // messages <githubid>
+                if (list.contains("messages") && list.size()==2) {
+                    //  String results = webber.get_messages();
+                    ArrayList<Message> results = urll1.get_messagesAndGitHubId(list.get(1));
+                    // SimpleShell.prettyPrint(results);
+                    System.out.println("number of elements - " + results.size());
+
+                    for(int i =0; i < results.size();i++)
+                        System.out.println(results.get(i).getMessage() + "," + results.get(i).getFromId() + "," + results.get(i).getToId());
+
+
+                    continue;
+                }
+                //when mygitid and sequence
+                //to execute type below for example we can use this (erdfcvs),3ab9eb055ee8574cebd4abe0b01ff5e6f94cac93
+                //messages sequence <mygitid> <sequence number>
+                if (list.contains("messages") && list.contains("sequence") && list.size()==4) {
+                    //  String results = webber.get_messages();
+                    ArrayList<Message> results = urll1.get_messagesAndGitHubIdAndSequence(list.get(2),list.get(3));
+                    // SimpleShell.prettyPrint(results);
+                    System.out.println("number of elements - " + results.size());
+
+                    for(int i =0; i < results.size();i++)
+                        System.out.println(results.get(i).getMessage() + "," + results.get(i).getFromId() + "," + results.get(i).getToId() + ","+ results.get(i).getSeqId());
+
+
+                    continue;
+                }
+                //messages fromgithubid and togithubid u can use (qrdtfgs) (erdfcvs)
+                //To execute use below
+                // messages from <fromgitid> <toGitid>
+
+                if (list.contains("messages") && list.contains("from") && list.size()==4) {
+                    //  String results = webber.get_messages();
+                    ArrayList<Message> results = urll1.get_messagesFromGitHubIdAndToGitHubId(list.get(2),list.get(3));
+                    // SimpleShell.prettyPrint(results);
+                    System.out.println("number of elements - " + results.size());
+
+                    for(int i =0; i < results.size();i++)
+                        System.out.println(results.get(i).getMessage() + "," + results.get(i).getFromId() + "," + results.get(i).getToId() + ","+ results.get(i).getSeqId());
+
+
+                    continue;
+                }
+                // posting message to the world u can use (qrdtfgs) (anymessage without space)
+                // To execute use below
+                // send <yourgithubid> <messageValue>
+                if (list.contains("send") && list.size()==3) {
+                    //  String results = webber.get_messages();
+                    ArrayList<Message> results = urll1.post_messagesAndYourGitHubId(list.get(1),list.get(2));
+                    // SimpleShell.prettyPrint(results);
+                    System.out.println("number of elements - " + results.size());
+
+                    for(int i =0; i < results.size();i++)
+                        System.out.println(results.get(i).getMessage() + "," + results.get(i).getFromId() + "," + results.get(i).getToId() + ","+ results.get(i).getSeqId());
+
+
+                    continue;
+                }
+                //post messages fromGitHubId to ToGitHubId use (qrdtfgs) (anymessage without spaces) (erdfcvs)
+                //To execute use below
+                //send <yourgithubid> <messageValue> <togithubid>
+                if (list.contains("send") && list.size()==4) {
+                    //  String results = webber.get_messages();
+                    ArrayList<Message> results = urll1.post_messagesAndFromGitHubIdToGitHubId(list.get(1),list.get(2),list.get(3));
+                    // SimpleShell.prettyPrint(results);
+                    System.out.println("number of elements - " + results.size());
+
+                    for(int i =0; i < results.size();i++)
+                        System.out.println(results.get(i).getMessage() + "," + results.get(i).getFromId() + "," + results.get(i).getToId() + ","+ results.get(i).getSeqId());
+
+
+                    continue;
+                }
+
+
                 // you need to add a bunch more.
 
                 //!! command returns the last command in history
